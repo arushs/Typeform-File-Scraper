@@ -1,4 +1,4 @@
-import urllib2
+from urllib.request import urlopen
 import requests
 import os
 import json
@@ -21,8 +21,9 @@ default_settings_dict = {}
 for key in dir(default_settings):
     default_settings_dict[key] = getattr(default_settings, key)
 
-x = urllib2.urlopen(default_settings_dict['URL']).read()
-responses = json.loads(x)['responses']
+x = urlopen(default_settings_dict['URL']).read()
+# print(x);
+responses = json.loads(x.decode('utf-8'))['responses']
 
 for response in responses:
         if default_settings_dict['DOCUMENT_FIELD'] in response["answers"]:
